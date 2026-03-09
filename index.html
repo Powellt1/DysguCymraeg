@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welsh Duolingo – Dragon Red</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fff5f5;
+        color: #330000;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: #b80000;
+        color: white;
+        padding: 20px;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    #xpBox {
+        background: #ffdddd;
+        padding: 10px;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    .skill-tree {
+        margin-top: 20px;
+    }
+    .skill {
+        display: inline-block;
+        background: #b80000;
+        color: white;
+        padding: 20px;
+        margin: 15px;
+        border-radius: 100px;
+        width: 150px;
+        height: 150px;
+        vertical-align: middle;
+        line-height: 110px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .skill:hover {
+        background: #8a0000;
+    }
+    .locked {
+        background: #80000080;
+        cursor: default;
+    }
+    #lessonScreen {
+        display: none;
+        padding: 20px;
+    }
+    button {
+        background: #b80000;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    button:hover {
+        background: #8a0000;
+    }
+    ul {
+        text-align: left;
+        max-width: 400px;
+        margin: auto;
+        font-size: 20px;
+        line-height: 1.8;
+    }
+</style>
+</head>
+<body>
+
+<header>🐉 Dysgu Cymraeg – Welsh Duolingo</header>
+
+<div id="xpBox">
+    XP: <span id="xpValue">0</span>
+</div>
+
+<div id="homeScreen">
+    <h2>Croeso! Dewiswch wers:</h2>
+
+    <div class="skill-tree">
+        <div class="skill" onclick="openLesson('greetings')">Greetings</div>
+        <div class="skill locked">Commands</div>
+        <div class="skill locked">Introduce Yourself</div>
+    </div>
+</div>
+
+<!-- LESSON SCREEN -->
+<div id="lessonScreen">
+    <h2 id="lessonTitle"></h2>
+    <div id="lessonContent"></div>
+    <button onclick="finishLesson()">Finish Lesson</button>
+</div>
+
+<script>
+    // XP system
+    let xp = localStorage.getItem('xp') || 0;
+    document.getElementById("xpValue").textContent = xp;
+
+    function openLesson(lesson) {
+        document.getElementById("homeScreen").style.display = "none";
+        document.getElementById("lessonScreen").style.display = "block";
+
+        if (lesson === "greetings") {
+            document.getElementById("lessonTitle").innerText = "Greetings – Lesson 1";
+            document.getElementById("lessonContent").innerHTML = `
+            <p>Match the Welsh to English:</p>
+            <ul>
+                <li>Shwmae – Hello</li>
+                <li>Bore da – Good morning</li>
+                <li>Prynhawn da – Good afternoon</li>
+                <li>Sut wyt ti? – How are you?</li>
+                <li>Hwyl fawr – Goodbye</li>
+            </ul>`;
+        }
+    }
+
+    function finishLesson() {
+        xp = Number(xp) + 10;
+        localStorage.setItem("xp", xp);
+        alert("Da iawn! +10 XP");
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
